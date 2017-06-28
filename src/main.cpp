@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 
 void WindowCanvas(void){
 	glutInitWindowPosition(0,0);
-	glutInitWindowSize(400,400);
+	glutInitWindowSize(300,300);
 	glutInitDisplayMode(GLUT_RGBA);
 	glutCreateWindow("Mandelbrot");
 	glutDisplayFunc(Display);

@@ -29,9 +29,9 @@ void KeyboardShortcut(unsigned char key, int x, int y){
 			else      CFLAG = true;
 			break;
 		case '_':
-			Cr =-0.7;
-			Ci = 0.0;
-			VS = 1.5;
+			Cr =-1.373392;
+			Ci = 0.022046;
+			VS = 2.0;
 			break;
 		default:
 			break;

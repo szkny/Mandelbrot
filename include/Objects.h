@@ -39,9 +39,9 @@ double FrameTimer  = 0.0; // for frame rate
 double coloff = 0.0;
 
 /* parameters */
-double Cr  =-0.7;
-double Ci  = 0.0;
-double VS  = 1.5;
+double Cr  =-1.373392;
+double Ci  = 0.022046;
+double VS  = 2.0;
 
 inline double mandelbrot(double a, double b){
 	double x = 0.0;
@@ -88,20 +88,16 @@ inline void glDisplayStrings(void){
 		}
 		++FrameCounter;
 		/* Strings */
-#define h windowH
-#define w windowW
 		glColor3d(0.0,0.0,0.0);
 		static char s[128];
 		sprintf(s,"frame : %d fps",TmpCounter);
-		glDrawString(s,10/w,(h-20)/h);
-		sprintf(s,"Range : %f",VS);
-		glDrawString(s,10/w,(h-35)/h);
+		glDrawString(s,10/windowW,(windowH-20)/windowH);
+		sprintf(s,"Range : %5.2e",VS);
+		glDrawString(s,10/windowW,(windowH-35)/windowH);
 		sprintf(s,"Cr    : %+f",Cr);
-		glDrawString(s,10/w,(h-50)/h);
+		glDrawString(s,10/windowW,(windowH-50)/windowH);
 		sprintf(s,"Ci    : %+f",Ci);
-		glDrawString(s,10/w,(h-65)/h);
-#undef h
-#undef w
+		glDrawString(s,10/windowW,(windowH-65)/windowH);
 	}	
 }
 
@@ -117,13 +113,15 @@ void glColorBar(void){
 			glColor3d(hue.R(),hue.G(),hue.B());
 			glVertex2d(h     ,0.0);
 			glVertex2d(h+hbin,0.0);
-			glVertex2d(h+hbin,0.1);
-			glVertex2d(h     ,0.1);
+			glVertex2d(h+hbin,30.0/windowH);
+			glVertex2d(h     ,30.0/windowH);
 			++i;
 		}
 		glEnd();
 	}
 }
+#undef NMAX
+#undef DIV
 
 /*****************************/
 
