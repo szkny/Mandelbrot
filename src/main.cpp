@@ -48,7 +48,7 @@ void WindowCanvas(void){
 	glutCreateWindow("Mandelbrot");
 	glutDisplayFunc(Display);
 	glutReshapeFunc(Resize);
-	glClearColor(0.2,0.2,0.2,1.0);
+	glClearColor(1.0,1.0,1.0,1.0);
 }
 
 
@@ -62,11 +62,9 @@ void Controler(void){
 
 void Display(void){
 	glClear(GL_COLOR_BUFFER_BIT);
-
 	glDrawCanvas();
 	glDisplayStrings();
 	glColorBar();
-
 	glutIdleFunc(glutPostRedisplay);
 	glutSwapBuffers();
 }
@@ -81,7 +79,7 @@ void Resize(int w, int h){
 	glLoadIdentity();
 	gluOrtho2D(0.0, 1.0, 0.0, 1.0);
 	if(600<windowW)
-		glutReshapeWindow(600,600);
+		glutReshapeWindow(500,500);
 	else
 		glutReshapeWindow(windowW,windowW);
 }

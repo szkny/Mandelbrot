@@ -20,8 +20,11 @@
 #include"Hue2rgb.h"
 #include"Define.h"
 
-#define NMAX 100 
-#define DIV  4.0
+/* divergence constant */
+#define DIV 4.0
+
+/* calculate loop max */
+int NMAX = 1e2; 
 
 extern double windowW,windowH;
 
@@ -32,7 +35,7 @@ bool CFLAG = false;
 /* clock time */
 clock_t FrameTbase = 0;   // for frame rate
 int FrameCounter   = 0;   // for frame rate
-int TmpCounter     = 0;   // for frame rate
+int TmpCounter     = 60;  // for frame rate
 double FrameTimer  = 0.0; // for frame rate
 
 /* color offset */
@@ -47,7 +50,6 @@ inline double mandelbrot(double a, double b){
 	double x = 0.0;
 	double y = 0.0;
 	double x1, y1;
-
 	for(int n=1;n<=NMAX;n++){
 		x1 = x*x-y*y+a;
 		y1 = 2.0*x*y+b;
@@ -77,6 +79,9 @@ inline void glDrawCanvas(void){
 }
 
 
+#define STRING(arg1,arg2,x,y)\
+sprintf(s,arg1,arg2);\
+glDrawString(s,x/windowW,(windowH-y)/windowH);
 /* Draw String Information */
 inline void glDisplayStrings(void){
 	if(SFLAG){
@@ -90,16 +95,13 @@ inline void glDisplayStrings(void){
 		/* Strings */
 		glColor3d(0.0,0.0,0.0);
 		static char s[128];
-		sprintf(s,"frame : %d fps",TmpCounter);
-		glDrawString(s,10/windowW,(windowH-20)/windowH);
-		sprintf(s,"Range : %5.2e",VS);
-		glDrawString(s,10/windowW,(windowH-35)/windowH);
-		sprintf(s,"Cr    : %+f",Cr);
-		glDrawString(s,10/windowW,(windowH-50)/windowH);
-		sprintf(s,"Ci    : %+f",Ci);
-		glDrawString(s,10/windowW,(windowH-65)/windowH);
+		STRING("frame : %d fps",TmpCounter,10,20);
+		STRING("Range : %5.2e",VS,10,35);
+		STRING("Cr    : %+f",Cr,10,50);
+		STRING("Ci    : %+f",Ci,10,65);
 	}	
 }
+#undef STRING
 
 
 void glColorBar(void){
@@ -120,7 +122,6 @@ void glColorBar(void){
 		glEnd();
 	}
 }
-#undef NMAX
 #undef DIV
 
 /*****************************/
