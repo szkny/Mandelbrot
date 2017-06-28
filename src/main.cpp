@@ -20,7 +20,6 @@
 /* Function Prototype Declaration */
 void WindowCanvas(void);
 void Controler(void);
-void MouseDrawMode(void);
 void PopUpMenu(void);
 void Display(void);
 void Resize(int w, int h);
@@ -44,7 +43,7 @@ int main(int argc, char *argv[]){
 
 void WindowCanvas(void){
 	glutInitWindowPosition(0,0);
-	glutInitWindowSize(500,500);
+	glutInitWindowSize(400,400);
 	glutInitDisplayMode(GLUT_RGBA);
 	glutCreateWindow("Mandelbrot");
 	glutDisplayFunc(Display);
@@ -81,6 +80,10 @@ void Resize(int w, int h){
 	glViewport(0, 0, w ,h);
 	glLoadIdentity();
 	gluOrtho2D(0.0, 1.0, 0.0, 1.0);
+	if(600<windowW)
+		glutReshapeWindow(600,600);
+	else
+		glutReshapeWindow(windowW,windowW);
 }
 
 

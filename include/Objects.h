@@ -20,9 +20,10 @@
 #include"Hue2rgb.h"
 #include"Define.h"
 
-#define NMAX 50 
-#define STEP 400.0  
-#define DIV   4.0
+#define NMAX 100 
+#define DIV  4.0
+
+extern double windowW,windowH;
 
 /* status flag */
 bool SFLAG = true;
@@ -59,7 +60,7 @@ inline double mandelbrot(double a, double b){
 	
 
 inline void glDrawCanvas(void){
-	double dVS = 2.0*VS/STEP;
+	double dVS = 2.0*VS/windowW;
 	glBegin(GL_QUADS);
 		for(double a=Cr-VS;a<Cr+VS;a+=dVS){
 			for(double b=Ci-VS;b<Ci+VS;b+=dVS){
@@ -87,16 +88,20 @@ inline void glDisplayStrings(void){
 		}
 		++FrameCounter;
 		/* Strings */
+#define h windowH
+#define w windowW
 		glColor3d(0.0,0.0,0.0);
 		static char s[128];
 		sprintf(s,"frame : %d fps",TmpCounter);
-		glDrawString(s,0.02,0.95);
+		glDrawString(s,10/w,(h-20)/h);
 		sprintf(s,"Range : %f",VS);
-		glDrawString(s,0.02,0.92);
+		glDrawString(s,10/w,(h-35)/h);
 		sprintf(s,"Cr    : %+f",Cr);
-		glDrawString(s,0.02,0.89);
+		glDrawString(s,10/w,(h-50)/h);
 		sprintf(s,"Ci    : %+f",Ci);
-		glDrawString(s,0.02,0.86);
+		glDrawString(s,10/w,(h-65)/h);
+#undef h
+#undef w
 	}	
 }
 
