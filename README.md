@@ -11,6 +11,6 @@ $ make
 $ ./bin/Mandelbrot
 ```
 
-![image1](https://github.com/szkny/Mandelbrot/wiki/images/mandelbrot2.gif)
+![image1](https://github.com/szkny/Mandelbrot/wiki/images/mandelbrot3.gif)
 
-![image1](https://github.com/szkny/Mandelbrot/wiki/images/mandelbrot1.gif)
+![image1](https://github.com/szkny/Mandelbrot/wiki/images/mandelbrot2.gif)
