@@ -65,6 +65,7 @@ void Display(void){
 	glDrawCanvas();
 	glDisplayStrings();
 	glColorBar();
+	glParameterBar();
 	glutIdleFunc(glutPostRedisplay);
 	glutSwapBuffers();
 }

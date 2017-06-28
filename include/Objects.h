@@ -42,8 +42,8 @@ double FrameTimer  = 0.0; // for frame rate
 double coloff = 0.0;
 
 /* parameters */
-double Cr  =-1.373392;
-double Ci  = 0.022046;
+double Cr  =-0.745816;
+double Ci  = 0.105092;
 double VS  = 2.0;
 
 inline double mandelbrot(double a, double b){
@@ -62,6 +62,9 @@ inline double mandelbrot(double a, double b){
 	
 
 inline void glDrawCanvas(void){
+	NMAX = 1e2+1/pow(VS,0.7);
+	if(NMAX<1e2) NMAX = 1e2;
+	if(1e3<NMAX) NMAX = 1e3;
 	double dVS = 2.0*VS/windowW;
 	glBegin(GL_QUADS);
 		for(double a=Cr-VS;a<Cr+VS;a+=dVS){
@@ -108,7 +111,6 @@ void glColorBar(void){
 	if(CFLAG){
 		double hmax = 1.0;
 		double hbin = hmax/1000;
-		int i = 0;
 		glBegin(GL_QUADS);
 		for(double h=0.0;h<hmax;h+=hbin){
 			hue2rgb hue(h,hmax);
@@ -117,11 +119,36 @@ void glColorBar(void){
 			glVertex2d(h+hbin,0.0);
 			glVertex2d(h+hbin,30.0/windowH);
 			glVertex2d(h     ,30.0/windowH);
-			++i;
 		}
 		glEnd();
 	}
 }
+
+
+void glParameterBar(void){
+	if(SFLAG&&!CFLAG){
+		double x = -log(VS/2)/log(2.0/1e-6);
+		static double y = 15.0;
+		glColor3d(0.0,0.0,0.0);
+		glBegin(GL_LINES);
+		glVertex2d(0.0,y/windowH);
+		glVertex2d(1.0,y/windowH);
+		glEnd();
+#define plot(a,b)\
+glColor3d(a,a,a);\
+glBegin(b);\
+glVertex2d(x-10/windowW,(y-5)/windowH);\
+glVertex2d(x+10/windowW,(y-5)/windowH);\
+glVertex2d(x+10/windowW,(y+5)/windowH);\
+glVertex2d(x-10/windowW,(y+5)/windowH);\
+glEnd();
+		plot(0.8,GL_QUADS);
+		plot(0.0,GL_LINE_LOOP);
+#undef plot
+	}
+}
+
+
 #undef DIV
 
 /*****************************/
