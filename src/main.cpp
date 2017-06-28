@@ -79,11 +79,7 @@ void Resize(int w, int h){
 	glViewport(0, 0, w ,h);
 	glLoadIdentity();
 	gluOrtho2D(0.0, 1.0, 0.0, 1.0);
-	if(600<windowW)
-		glutReshapeWindow(500,500);
-	else
-		glutReshapeWindow(windowW,windowW);
+	glutReshapeWindow(windowH,windowH);
 }
-
 
 

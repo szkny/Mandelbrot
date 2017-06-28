@@ -44,8 +44,8 @@ double FrameTimer  = 0.0; // for frame rate
 double coloff = 0.0;
 
 /* parameters */
-double Cr  =-1.255331;
-double Ci  = 0.383886;
+double Cr  =-1.258191798355;
+double Ci  = 0.386442697238;
 double VS  = 2.0;
 
 inline double mandelbrot(double a, double b){
@@ -59,19 +59,17 @@ inline double mandelbrot(double a, double b){
 		x = x1;
 		y = y1;
 	}
-	return 1.0; // 計算の繰り返し上限到達
+	return NMAX; // 計算の繰り返し上限到達
 }
 	
 
 inline void glDrawCanvas(void){
-	NMAX = 1e2+1/pow(VS,0.7);
+	NMAX = 1e2+1/pow(VS,0.25);
 	if(NMAX<1e2) NMAX = 1e2;
-	if(1e3<NMAX) NMAX = 1e3;
 	double dVS = 2.0*VS/windowW;
 	glBegin(GL_QUADS);
 		for(double a=Cr-VS;a<Cr+VS;a+=dVS){
 			for(double b=Ci-VS;b<Ci+VS;b+=dVS){
-				//hue2rgb C(log(mandelbrot(a,b))+log(NMAX)*coloff,log(NMAX));
 				hue2rgb C(mandelbrot(a,b)+NMAX*coloff,NMAX);
 				glColor3d(C.R(),C.G(),C.B());
 				glVertex2d(0.5+(-Cr+a    )/(2*VS),0.5+(-Ci+b    )/(2*VS));
@@ -102,8 +100,8 @@ inline void glDisplayStrings(void){
 		static char s[128];
 		STRING("frame : %d fps",TmpCounter,10,20);
 		STRING("Range : %5.2e",VS,10,35);
-		STRING("Cr    : %+f",Cr,10,50);
-		STRING("Ci    : %+f",Ci,10,65);
+		STRING("Cr    : %+.12lf",Cr,10,50);
+		STRING("Ci    : %+.12lf",Ci,10,65);
 	}	
 }
 #undef STRING
@@ -129,7 +127,7 @@ void glColorBar(void){
 
 void glParameterBar(void){
 	if(SFLAG&&!CFLAG){
-		double x = -log(VS/2)/log(2.0/1e-6);
+		double x = -log(VS/2)/log(2.0/1e-10);
 		static double y = 15.0;
 		glColor3d(0.0,0.0,0.0);
 		glBegin(GL_LINES);
@@ -154,9 +152,9 @@ glEnd();
 void SetRange(int x, int y){
 	if((windowH-20<=y&&y<=windowH-10)||MFLAG){
 		VFLAG = true;
-		VS = pow(10,-x/windowW*(log10(2)+6)+log10(2));
-		if(VS<1e-6) VS = 1e-6;
-		if(2.0<VS)  VS = 2.0;
+		VS = pow(10,-x/windowW*(log10(2)+10)+log10(2));
+		if(VS<1e-10) VS = 1e-10;
+		if(2.0<VS)   VS = 2.0;
 	}
 }
 
