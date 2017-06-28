@@ -61,7 +61,7 @@ void Controler(void){
 
 
 void Display(void){
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	glDrawCanvas();
 	glDisplayStrings();
 	glColorBar();

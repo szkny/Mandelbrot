@@ -44,8 +44,8 @@ double FrameTimer  = 0.0; // for frame rate
 double coloff = 0.0;
 
 /* parameters */
-double Cr  =-1.255278;
-double Ci  = 0.383863;
+double Cr  =-1.255331;
+double Ci  = 0.383886;
 double VS  = 2.0;
 
 inline double mandelbrot(double a, double b){

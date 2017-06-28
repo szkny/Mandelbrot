@@ -30,8 +30,8 @@ void KeyboardShortcut(unsigned char key, int x, int y){
 			else      CFLAG = true;
 			break;
 		case '_':
-			Cr =-1.255278;
-			Ci = 0.383863;
+			Cr =-1.255331;
+			Ci = 0.383886;
 			VS = 2.0;
 			NMAX = 1e2;
 			break;
