@@ -28,22 +28,24 @@ int NMAX = 1e2;
 
 extern double windowW,windowH;
 
-/* status flag */
+/* flags */
 bool SFLAG = true;
 bool CFLAG = false;
+extern bool MFLAG;
+extern bool VFLAG;
 
 /* clock time */
 clock_t FrameTbase = 0;   // for frame rate
 int FrameCounter   = 0;   // for frame rate
-int TmpCounter     = 60;  // for frame rate
+int TmpCounter     = 0;   // for frame rate
 double FrameTimer  = 0.0; // for frame rate
 
 /* color offset */
 double coloff = 0.0;
 
 /* parameters */
-double Cr  =-0.745816;
-double Ci  = 0.105092;
+double Cr  =-1.255278;
+double Ci  = 0.383863;
 double VS  = 2.0;
 
 inline double mandelbrot(double a, double b){
@@ -145,6 +147,16 @@ glEnd();
 		plot(0.8,GL_QUADS);
 		plot(0.0,GL_LINE_LOOP);
 #undef plot
+	}
+}
+
+
+void SetRange(int x, int y){
+	if((windowH-20<=y&&y<=windowH-10)||MFLAG){
+		VFLAG = true;
+		VS = pow(10,-x/windowW*(log10(2)+6)+log10(2));
+		if(VS<1e-6) VS = 1e-6;
+		if(2.0<VS)  VS = 2.0;
 	}
 }
 

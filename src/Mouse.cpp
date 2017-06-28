@@ -27,10 +27,7 @@ void MouseClick(int button, int state, int x, int y){
 		case GLUT_LEFT_BUTTON:
 			if(state==GLUT_DOWN){
 				if(CFLAG) coloff = x/windowW;
-				else if(SFLAG&&windowH-20<=y&&y<=windowH-10){
-					VFLAG = true;
-					VS = pow(10,-x/windowW*(log10(2)+6)+log10(2));
-				}
+				else if(SFLAG) SetRange(x,y);
 			}
 			if(state==GLUT_UP){
 				VFLAG = false;
@@ -51,8 +48,7 @@ void MouseMotion(int x, int y){
 	if(MFLAG){
 		if(CFLAG) coloff = x/windowW;
 		else{
-			if(VFLAG)
-				VS = pow(10,-x/windowW*(log10(2)+6)+log10(2));
+			if(VFLAG) SetRange(x,y);
 			else{
 				Cr -= (double)(x-xmouse)/200*VS;
 				if(Cr<-2.0) Cr = -2.0;
