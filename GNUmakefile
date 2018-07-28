@@ -15,8 +15,8 @@ COMPILER = g++
 # cross platform make
 UNAME   := $(shell uname)
 ifeq ($(UNAME), Darwin)
-CFLAGS  += -Wall -O2 -mmacosx-version-min=10.8
-FRAME    = -framework GLUT -framework OpenGL 
+CFLAGS  += -Wall -O2
+FRAME    = -framework GLUT -framework OpenGL
 endif
 ifeq ($(UNAME), Linux)
 CFLAGS  += -w -O2 -I/usr/X11R6/include -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
@@ -27,17 +27,23 @@ OBJECTS  = $(notdir $(SOURCES:%$(SUFFIX)=%.o))
 TARGETS  = $(basename $(OBJECTS))
 LIBRARY  = $(NAME).a
 
-all: $(LIBRARY) $(NAME)
+.PHONY: all build run clean
+all: build
 	@echo "    —————————————————————————————————————————————  "
 	@echo "         Complete to create $(NAME) into $(EXE_DIR)"
 	@echo "            Let's try doing $(EXE_DIR)/$(NAME) !   "
 	@echo "    —————————————————————————————————————————————  "
 
+build: $(LIBRARY) $(NAME)
+
+run:
+	$(EXE_DIR)/$(NAME)
+
 # make archives
 $(LIBRARY): $(OBJECTS)
 	@ar ru $(LIB_DIR)/$(LIBRARY) $(OBJECTS)
 	@ranlib $(LIB_DIR)/$(LIBRARY)
-	@$(RM) $(OBJECTS) 
+	@$(RM) $(OBJECTS)
 
 # make execute file
 $(NAME): $(LIB_DIR)/$(LIBRARY)
@@ -52,6 +58,5 @@ endef
 $(foreach var,$(TARGETS),$(eval $(call MACRO,$(var))))
 
 #make clean
-.PHONY: clean
-clean: 
+clean:
 	$(RM) $(OBJECTS) $(LIB_DIR)/$(LIBRARY) $(EXE_DIR)/$(NAME)

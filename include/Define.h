@@ -7,6 +7,9 @@
 #define PI 3.14159265359
 #endif
 
+#include<stdlib.h>
+#include<math.h>
+
 #ifndef Randf_
 #define Randf_
 //0~1の一様乱数の作成する関数
@@ -20,22 +23,22 @@ inline double randf(void){
 #define Poisson_
 /* random function (poison distribution) */
 inline int poisson(double lambda){
-	if( lambda<30 ){
-		double x;
-		int k = 0;
-		x = randf();
-		while( x>=exp(-lambda) ) {
-			x = x*randf();
-			k = k+1;
-		}
-		return k;
-	}
-	else{
-		double sigma = sqrt(lambda);
-		double z = sqrt(-2.0*log(randf()))*sin(2.0*PI*randf());
-		int k = lambda+sigma*z;
-		return k;
-	}
+    if( lambda<30 ){
+        double x;
+        int k = 0;
+        x = randf();
+        while( x>=exp(-lambda) ) {
+            x = x*randf();
+            k = k+1;
+        }
+        return k;
+    }
+    else{
+        double sigma = sqrt(lambda);
+        double z = sqrt(-2.0*log(randf()))*sin(2.0*PI*randf());
+        int k = lambda+sigma*z;
+        return k;
+    }
 }
 #endif
 
